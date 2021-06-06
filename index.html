@@ -5,14 +5,39 @@
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
+        const state = {eventCount: 0, username: ''}
 
-        function tick() {
-            const time = new Date().toLocaleTimeString()
-            const element = <div>{time}</div>
-            ReactDOM.render(element, document.getElementById('root'))
+        function App() {
+            function handleClick() {
+                setState({eventCount: state.eventCount + 1})
+            }
+            function handleChange(event) {
+                setState({username: event.target.value})
+            }
+            return (
+                <div>
+                    <p>There have been {state.eventCount} events.</p>
+                    <p>
+                        <button onClick={handleClick}>Click me</button>
+                    </p>    
+                    <p>You typed: {state.username}</p>
+                    <p>
+                        <input onChange={handleChange}/>
+                    </p>
+                </div>
+            )
         }
-        tick()
-        setInterval(tick, 1000)
+
+        function setState(newState) {
+            Object.assign(state, newState)
+            renderApp()
+        }
+
+        function renderApp() {
+            ReactDOM.render(<App/>, document.getElementById('root'))
+        }
+
+        renderApp()
     </script>
 </body>
 

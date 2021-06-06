@@ -6,7 +6,9 @@
     <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
         function Greeting() {
-            const [name, setName] = React.useState(window.localStorage.getItem('name') || '')
+            const [name, setName] = React.useState(
+                () => window.localStorage.getItem('name') || ''
+            )
             React.useEffect(() => {
                 window.localStorage.setItem('name', name)
             })
